@@ -1,6 +1,6 @@
-import MediaRow from './MediaRow';
+import MediaRow from '../components/MediaRow';
 import {useState} from 'react';
-import SingleView from './SingleView';
+import SingleView from '../components/SingleView';
 const mediaArray = [
   {
     media_id: 8,
