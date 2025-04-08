@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -13,31 +13,89 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* nav */
+nav ul {
+  list-style-type: none;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: flex-end;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  text-decoration: none;
 }
 
+nav a:hover {
+  background-color: #111111;
+}
+
+/* media item card */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+td img {
+  width: 260px;
+  height: 200px;
+  object-fit: cover;
+}
+
+td button:hover,
+a:hover {
+  background-color: #111111;
+}
+
+td a {
+  color: white;
+  text-decoration: none;
+  background-color: #363636;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+}
+
+/* media item dialog */
+dialog {
+  position: fixed;
+  top: 5%;
+  height: 90%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+dialog button {
+  display: block;
+}
+
+dialog img,
+video {
+  height: 70%;
+  object-fit: contain;
+}
+
+/* single view */
 img,
 video {
   max-width: 100%;
@@ -61,7 +119,7 @@ form img {
 
 form div {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 80%;
 }
 
@@ -73,7 +131,6 @@ form input {
 }
 
 form textarea {
-  bottom: 0;
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #ccc;
@@ -88,32 +145,4 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-}
-
-.exit-button {
-  display: flex;
-  top: 0;
-  width: 4em;
-  height: 2.8em;
-  justify-content: center;
-}
-
-dialog {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1.5em;
-  top: 0;
-  padding: 1em;
-  height: 85%;
-  position: fixed;
-  width: 70%;
-  z-index: 10;
-  border-radius: 8px;
-  border: 10px solid #1d1d1d;
-  overflow: auto;
-}
-dialog h3 {
-  margin-top: auto;
-  align-self: flex-start;
 }
