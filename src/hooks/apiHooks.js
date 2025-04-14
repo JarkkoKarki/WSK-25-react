@@ -9,20 +9,30 @@ const useMedia = () => {
 
   const getMedia = async () => {
     try {
-      const mediaData = await fetchData(mediaApiUrl + '/media');
-      const newData = await Promise.all(
-        mediaData.map(async (item) => {
-          const data = await fetchData(`${authApiUrl}/users/${item.user_id}`);
+      const mediaData = await fetchData(`${mediaApiUrl}/media`);
 
-          return {...item, username: data.username};
-        }),
+      const userData = await Promise.all(
+        mediaData.map((item) =>
+          fetchData(`${authApiUrl}/users/${item.user_id}`),
+        ),
       );
-      console.log(newData);
+
+      const userMap = userData.reduce((map, {user_id, username}) => {
+        map[user_id] = username;
+        return map;
+      }, {});
+
+      const newData = mediaData.map((item) => ({
+        ...item,
+        username: userMap[item.user_id],
+      }));
+
       setMediaArray(newData);
     } catch (error) {
-      console.log('error', error);
+      console.error('error', error);
     }
   };
+
   useEffect(() => {
     getMedia();
   }, []);
