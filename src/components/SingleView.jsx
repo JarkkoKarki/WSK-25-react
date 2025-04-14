@@ -1,7 +1,8 @@
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 
 const SingleView = (props) => {
   const {item, setSelectedItem} = props;
+
   const handleClick = () => {
     setSelectedItem(null);
   };
@@ -9,11 +10,9 @@ const SingleView = (props) => {
     <>
       {item && (
         <dialog open>
-          <button className="exit-button" onClick={handleClick}>
-            &#10005;
-          </button>
+          <button onClick={handleClick}>&#10005;</button>
           {item.media_type.includes('video') ? (
-            <video src={item.filename} controls></video>
+            <video src={item.filename} controls />
           ) : (
             <img src={item.filename} alt={item.title} />
           )}
@@ -27,7 +26,7 @@ const SingleView = (props) => {
 
 SingleView.propTypes = {
   item: PropTypes.object.isRequired,
-  setMediaItem: PropTypes.func.isRequired,
+  setSelectedItem: PropTypes.func.isRequired,
 };
 
 export default SingleView;
