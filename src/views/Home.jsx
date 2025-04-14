@@ -1,7 +1,7 @@
 import MediaRow from '../components/MediaRow';
 import {useState} from 'react';
 import SingleView from '../components/SingleView';
-import useMedia from '../hooks/apiHooks';
+import {useMedia} from '../hooks/apiHooks';
 
 //(rafce)
 const Home = () => {
