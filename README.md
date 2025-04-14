@@ -4,7 +4,9 @@ Open [Routing](https://users.metropolia.fi/~jarkkaka/WSK-25/react/routing) to vi
 
 Open [Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/hooks) to view it in the browser.
 
-Open [Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/custom-hooks) to view it in the browser.
+Open [Custom-Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/custom-hooks) to view it in the browser.
+
+Open [Forms](https://users.metropolia.fi/~jarkkaka/WSK-25/react/forms) to view it in the browser.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
