@@ -1,5 +1,3 @@
-// imports
-
 import {useState} from 'react';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
@@ -15,7 +13,7 @@ const Login = () => {
     <>
       {formToggle ? <LoginForm /> : <RegisterForm />}
       <button onClick={clickHandler}>
-        {formToggle ? 'or register' : 'or Login'}
+        {formToggle ? 'or Register' : 'or Login'}
       </button>
     </>
   );
