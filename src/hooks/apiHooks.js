@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import {fetchData} from '../utils/fetchData';
 
 const authApiUrl = import.meta.env.VITE_AUTH_API;
@@ -48,4 +48,30 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
-export {useMedia, useAuthentication};
+const useUser = () => {
+  const postUser = async (inputs) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+  };
+  const getUserByToken = useCallback(async (token) => {
+    const fetchOptions = {
+      headers: {
+        Authorization: 'Bearer: ' + token,
+      },
+    };
+    const userResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users/token',
+      fetchOptions,
+    );
+
+    console.log(userResult);
+    return userResult;
+  }, []);
+  return {getUserByToken, postUser};
+};
+export {useMedia, useAuthentication, useUser};
