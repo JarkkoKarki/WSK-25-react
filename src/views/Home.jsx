@@ -1,38 +1,12 @@
 import MediaRow from '../components/MediaRow';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import SingleView from '../components/SingleView';
-import {fetchData} from '../utils/fetchData';
+import useMedia from '../hooks/apiHooks';
 
 //(rafce)
 const Home = () => {
-  const [mediaArray, setMediaArray] = useState([]);
+  const mediaArray = useMedia();
   const [selectedItem, setSelectedItem] = useState(null);
-
-  console.log('selectedItem ', selectedItem);
-
-  useEffect(() => {
-    const getMedia = async () => {
-      try {
-        const mediaData = await fetchData(
-          import.meta.env.VITE_MEDIA_API + '/media',
-        );
-        const authApiUrl = import.meta.env.VITE_AUTH_API;
-        const newData = await Promise.all(
-          mediaData.map(async (item) => {
-            const data = await fetchData(`${authApiUrl}/users/${item.user_id}`);
-
-            return {...item, username: data.username};
-          }),
-        );
-        console.log(newData);
-        setMediaArray(newData);
-      } catch (error) {
-        console.log('error', error);
-      }
-    };
-    getMedia();
-  }, []);
-  console.log('mediaArray Pääohjelma: ', mediaArray);
 
   return (
     <>
