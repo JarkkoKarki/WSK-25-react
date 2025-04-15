@@ -54,9 +54,6 @@ const useAuthentication = () => {
     );
 
     console.log('loginResult', loginResult.token);
-
-    window.localStorage.setItem('token', loginResult.token);
-
     return loginResult;
   };
 
