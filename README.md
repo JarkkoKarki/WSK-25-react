@@ -10,6 +10,8 @@ Open [Forms](https://users.metropolia.fi/~jarkkaka/WSK-25/react/forms) to view i
 
 Open [Context](https://users.metropolia.fi/~jarkkaka/WSK-25/react/context) to view it in the browser.
 
+Open [upload](https://users.metropolia.fi/~jarkkaka/WSK-25/react/upload) to view it in the browser.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
