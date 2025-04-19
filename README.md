@@ -1,8 +1,6 @@
 # React + Vite
 
-Open [Routing](https://users.metropolia.fi/~jarkkaka/WSK-25/react/routing) to view it in the browser.
-
-Open [Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/hooks) to view it in the browser.
+Open [Custom-Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/custom-hooks) to view it in the browser.
 
 Open [Custom-Hooks](https://users.metropolia.fi/~jarkkaka/WSK-25/react/custom-hooks) to view it in the browser.
 
