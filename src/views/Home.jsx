@@ -1,11 +1,10 @@
 import MediaRow from '../components/MediaRow';
-import {useState} from 'react';
 import SingleView from '../components/SingleView';
-import useMedia from '../hooks/apiHooks';
+import {useMedia} from '../hooks/apiHooks';
+import {useState} from 'react';
 
-//(rafce)
 const Home = () => {
-  const mediaArray = useMedia();
+  const {mediaArray} = useMedia();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (

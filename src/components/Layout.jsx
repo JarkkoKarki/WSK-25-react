@@ -1,31 +1,46 @@
 import {Link, Outlet} from 'react-router';
-function Layout() {
+import {useUserContext} from '../hooks/contextHooks';
+import {useEffect} from 'react';
+
+const Layout = () => {
+  const {user, handleAutoLogin} = useUserContext();
+  useEffect(() => {
+    handleAutoLogin();
+  }, []);
+
   return (
-    <>
+    <div>
       <header>
-        <div>
-          <nav>
-            <ul>
+        <h1>My App</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/upload">Upload</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </>
+            ) : (
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/login">Login</Link>
               </li>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/upload">Upload</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
+            )}
+          </ul>
+        </nav>
       </header>
       <main>
         <Outlet />
       </main>
-    </>
+    </div>
   );
-}
-
-Layout.propTypes = {};
-
+};
 export default Layout;
