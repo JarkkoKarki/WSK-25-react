@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 
 import {fetchData} from '../utils/fetchData';
+
 const authApiUrl = import.meta.env.VITE_AUTH_API;
 const mediaApiUrl = import.meta.env.VITE_MEDIA_API;
 
@@ -16,6 +17,7 @@ const useMedia = () => {
           fetchData(`${authApiUrl}/users/${item.user_id}`),
         ),
       );
+
       const userMap = userData.reduce((map, {user_id, username}) => {
         map[user_id] = username;
         return map;
@@ -36,7 +38,24 @@ const useMedia = () => {
     getMedia();
   }, []);
 
-  return mediaArray;
+  const postMedia = async (file, inputs, token) => {
+    const data = {
+      ...inputs,
+      ...file,
+    };
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer: ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    return await fetchData(`${mediaApiUrl}/media`, fetchOptions);
+  };
+
+  return {mediaArray, postMedia};
 };
 
 const useAuthentication = () => {
@@ -54,6 +73,9 @@ const useAuthentication = () => {
     );
 
     console.log('loginResult', loginResult.token);
+
+    window.localStorage.setItem('token', loginResult.token);
+
     return loginResult;
   };
 
@@ -82,17 +104,36 @@ const useUser = () => {
       },
     };
 
-    const userResult = await fetchData(
+    return await fetchData(
       import.meta.env.VITE_AUTH_API + '/users/token',
       fetchOptions,
     );
-
-    console.log('userResult', userResult);
-
-    return userResult;
   }, []);
 
   return {getUserByToken, postUser};
 };
 
-export {useMedia, useAuthentication, useUser};
+const useFile = () => {
+  const postFile = async (file, token) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer: ' + token,
+      },
+      mode: 'cors',
+      body: formData,
+    };
+
+    await fetchData(
+      import.meta.env.VITE_UPLOAD_SERVER + '/upload',
+      fetchOptions,
+    );
+  };
+
+  return {postFile};
+};
+
+export {useMedia, useAuthentication, useUser, useFile};
