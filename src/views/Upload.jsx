@@ -1,5 +1,5 @@
+import TextInput from '../components/ui/TextInput';
 import {useFile, useMedia} from '../hooks/apiHooks';
-
 import useForm from '../hooks/formHooks';
 import {useState} from 'react';
 
@@ -10,7 +10,6 @@ const Upload = () => {
 
   const doUpload = async () => {
     try {
-      // implement upload
       const token = window.localStorage.getItem('token');
 
       const fileResult = await postFile(file, token);
@@ -28,41 +27,44 @@ const Upload = () => {
   const handleFileChange = (evt) => {
     if (evt.target.files) {
       console.log(evt.target.files[0]);
-      // TODO: set the file to state
       setFile(evt.target.files[0]);
     }
   };
 
   return (
-    <>
-      <h1>Upload</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="rounded-lg bg-stone-700 p-6 text-white shadow-lg">
+      <h1 className="mb-4 text-3xl font-bold">Upload</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <TextInput
+          label="Title"
+          name="title"
+          type="text"
+          id="title"
+          className="w-full rounded-lg bg-stone-800 p-2 text-white"
+        />
         <div>
-          <label htmlFor="title">Title</label>
-          <input
-            name="title"
-            type="text"
-            id="title"
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description" className="mb-2 block font-semibold">
+            Description
+          </label>
           <textarea
             name="description"
             rows={5}
             id="description"
             onChange={handleInputChange}
+            className="w-full rounded-lg bg-stone-800 p-2 text-white"
           ></textarea>
         </div>
         <div>
-          <label htmlFor="file">File</label>
+          <label htmlFor="file" className="mb-2 block font-semibold">
+            File
+          </label>
           <input
             name="file"
             type="file"
             id="file"
             accept="image/*, video/*"
             onChange={handleFileChange}
+            className="block w-full text-white file:mr-4 file:rounded-lg file:border-0 file:bg-stone-800 file:px-4 file:py-2 file:text-white hover:file:bg-gray-700"
           />
         </div>
         <img
@@ -72,16 +74,18 @@ const Upload = () => {
               : 'https://placehold.co/600x400?text=Choose+image'
           }
           alt="preview"
+          className="mt-4 rounded-lg shadow-lg"
           width="200"
         />
         <button
           type="submit"
           disabled={file && inputs?.title.length > 3 ? false : true}
+          className="mt-4 w-full rounded-lg bg-stone-800 px-4 py-2 font-semibold text-white transition-all duration-300 ease-in-out hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Upload
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

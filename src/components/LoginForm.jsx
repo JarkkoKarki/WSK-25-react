@@ -1,9 +1,11 @@
-/* eslint-disable no-undef */
+import {useAuthentication} from '../hooks/apiHooks';
 import useForm from '../hooks/formHooks';
-import {useUserContext} from '../hooks/contextHooks';
+import {useNavigate} from 'react-router';
 
+// LoginForm.jsx
 const LoginForm = () => {
-  const {handleLogin} = useUserContext();
+  const {postLogin} = useAuthentication();
+  const navigate = useNavigate();
 
   const initValues = {
     username: '',
@@ -11,11 +13,11 @@ const LoginForm = () => {
   };
 
   const doLogin = async () => {
-    try {
-      await handleLogin(inputs);
-    } catch (e) {
-      alert(e.message);
-    }
+    console.log('login funktiota kutsuttu');
+    console.log(inputs);
+    // TODO: add login functionalities here
+    await postLogin(inputs);
+    navigate('/');
   };
 
   const {inputs, handleInputChange, handleSubmit} = useForm(
