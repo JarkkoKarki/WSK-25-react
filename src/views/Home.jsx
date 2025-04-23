@@ -9,10 +9,10 @@ const Home = () => {
 
   return (
     <>
-      <h2>My Media</h2>
+      <h2 className="my-4 font-mono text-2xl">My Media</h2>
       <table>
         <thead>
-          <tr>
+          <tr className="*:border-2 *:border-[#ccc] *:p-4">
             <th>Thumbnail</th>
             <th>Title</th>
             <th>Description</th>

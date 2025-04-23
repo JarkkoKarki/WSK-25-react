@@ -11,27 +11,52 @@ const Layout = () => {
   return (
     <div>
       <header>
-        <h1>My App</h1>
+        <h1 className="mb-4 text-4xl">My App</h1>
         <nav>
-          <ul>
+          <ul className="mb-2 flex list-none justify-end rounded-lg bg-stone-700 p-2 shadow-lg">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                className="block rounded-lg p-4 text-center text-white transition-all duration-300 ease-in-out hover:bg-gray-400 hover:text-gray-900"
+                to="/"
+              >
+                Home
+              </Link>
             </li>
             {user ? (
               <>
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link
+                    className="block rounded-lg p-4 text-center text-white transition-all duration-300 ease-in-out hover:bg-gray-400 hover:text-gray-900"
+                    to="/profile"
+                  >
+                    Profile
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/upload">Upload</Link>
+                  <Link
+                    className="block rounded-lg p-4 text-center text-white transition-all duration-300 ease-in-out hover:bg-gray-400 hover:text-gray-900"
+                    to="/upload"
+                  >
+                    Upload
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/logout">Logout</Link>
+                  <Link
+                    className="block rounded-lg p-4 text-center text-white transition-all duration-300 ease-in-out hover:bg-gray-400 hover:text-gray-900"
+                    to="/logout"
+                  >
+                    Logout
+                  </Link>
                 </li>
               </>
             ) : (
               <li>
-                <Link to="/login">Login</Link>
+                <Link
+                  className="block rounded-lg p-4 text-center text-white transition-all duration-300 ease-in-out hover:bg-gray-400 hover:text-gray-900"
+                  to="/login"
+                >
+                  Login
+                </Link>
               </li>
             )}
           </ul>

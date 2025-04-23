@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import {useUser} from '../hooks/apiHooks';
 
 const Profile = () => {
@@ -18,21 +17,28 @@ const Profile = () => {
     fetchUser();
   }, [getUserByToken]);
 
-  console.log(user);
   return (
-    <>
-      <h2>Profile</h2>
-      {user && (
-        <>
-          <p>Username: {user.user.username}</p>
-          <p>Email: {user.user.email}</p>
+    <div className="rounded-lg bg-stone-700 p-6 text-white shadow-lg">
+      <h2 className="mb-4 text-3xl font-bold">Profile</h2>
+      {user ? (
+        <div className="space-y-2">
           <p>
-            Register date:{' '}
+            <span className="font-semibold">Username:</span>{' '}
+            {user.user.username}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {user.user.email}
+          </p>
+          <p>
+            <span className="font-semibold">Register date:</span>{' '}
             {new Date(user.user.created_at).toLocaleString('fi-FI')}
           </p>
-        </>
+        </div>
+      ) : (
+        <p>Loading...</p>
       )}
-    </>
+    </div>
   );
 };
+
 export default Profile;
