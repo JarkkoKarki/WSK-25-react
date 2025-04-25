@@ -166,4 +166,59 @@ const useFile = () => {
   return {postFile};
 };
 
+export const useLike = () => {
+  const postLike = useCallback(async (mediaId) => {
+    const token = localStorage.getItem('token');
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({media_id: mediaId}),
+    };
+    return await fetchData(`${mediaApiUrl}/likes`, fetchOptions);
+  }, []);
+
+  const deleteLike = useCallback(async (likeId) => {
+    const token = localStorage.getItem('token');
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return await fetchData(`${mediaApiUrl}/likes/${likeId}`, fetchOptions);
+  }, []);
+
+  const getLikesByMediaId = useCallback(async (mediaId) => {
+    const token = localStorage.getItem('token');
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const userLike = await fetchData(
+      `${mediaApiUrl}/likes/bymedia/${mediaId}`,
+      fetchOptions,
+    );
+    return userLike || null;
+  }, []);
+  const getLikesByUser = useCallback(async (mediaId) => {
+    const token = localStorage.getItem('token');
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const userLike = await fetchData(
+      `${mediaApiUrl}/likes/bymedia/user/${mediaId}`,
+      fetchOptions,
+    );
+    return userLike || null;
+  }, []);
+
+  return {postLike, deleteLike, getLikesByMediaId, getLikesByUser};
+};
+
 export {useMedia, useAuthentication, useUser, useFile};

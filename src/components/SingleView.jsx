@@ -1,32 +1,27 @@
 import PropTypes from 'prop-types';
+import Likes from './Likes';
 
-const SingleView = (props) => {
-  const {item, setSelectedItem} = props;
+const SingleView = ({item, setSelectedItem}) => {
+  if (!item) return null;
 
-  const handleClick = () => {
-    setSelectedItem(null);
-  };
   return (
-    <>
-      {item && (
-        <dialog open className="fixed top-[5%] left-[10%] h-dvh overflow-auto">
-          <button onClick={handleClick}>&#10005;</button>
-          {item.media_type.includes('video') ? (
-            <video src={item.filename} controls />
-          ) : (
-            <img src={item.filename} alt={item.title} />
-          )}
-          <h3>Title: {item.title}</h3>
-          <p>{item.description}</p>
-        </dialog>
-      )}
-    </>
+    <div className="p-4">
+      <h2 className="text-2xl font-bold">{item.title}</h2>
+      <p>{item.description}</p>
+      <img
+        src={item.thumbnail}
+        alt={item.title}
+        className="mt-4 rounded-lg shadow-lg"
+      />
+      <Likes mediaId={item.media_id} />
+      <button
+        onClick={() => setSelectedItem(null)}
+        className="mt-4 rounded-lg bg-gray-700 px-4 py-2 text-white"
+      >
+        Close
+      </button>
+    </div>
   );
-};
-
-SingleView.propTypes = {
-  item: PropTypes.object.isRequired,
-  setSelectedItem: PropTypes.func.isRequired,
 };
 
 export default SingleView;

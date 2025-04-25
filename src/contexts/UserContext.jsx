@@ -1,4 +1,3 @@
-// UserContext.jsx
 import {createContext, useState} from 'react';
 import {useAuthentication, useUser} from '../hooks/apiHooks';
 import {useLocation, useNavigate} from 'react-router';
@@ -12,7 +11,6 @@ const UserProvider = ({children}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // login, logout and autologin functions are here instead of components
   const handleLogin = async (credentials) => {
     const loginResult = await postLogin(credentials);
     localStorage.setItem('token', loginResult.token);
@@ -35,7 +33,6 @@ const UserProvider = ({children}) => {
         navigate(location.pathname);
       }
     } catch (e) {
-      // Token not valid
       handleLogout();
       console.log(e.message);
     }
