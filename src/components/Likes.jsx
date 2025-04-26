@@ -1,66 +1,71 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLike} from '../hooks/apiHooks';
-import {useUserContext} from '../hooks/contextHooks';
 
-const Likes = ({mediaId}) => {
-  const {getLikesByMediaId, getLikesByUser, postLike, deleteLike} = useLike();
-  const {user} = useUserContext();
+const Likes = ({mediaId, token}) => {
+  const {getLikes, getLikesByUser, postLike, deleteLike} = useLike();
   const [likes, setLikes] = useState([]);
-  const [userLikeId, setUserLikeId] = useState(null);
+  const [userLikes, setUserLikes] = useState(false);
 
-  useEffect(() => {
-    const fetchLikes = async () => {
-      try {
-        const mediaLikes = await getLikesByMediaId(mediaId);
-        setLikes(mediaLikes || []);
-
-        if (user) {
-          const userLike = await getLikesByUser(mediaId);
-          if (userLike) {
-            setUserLikeId(userLike.like_id);
-          } else {
-            setUserLikeId(null);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching likes:', error.message);
-      }
-    };
-
-    fetchLikes();
-  }, [mediaId, user, getLikesByMediaId, getLikesByUser]);
-
-  const handleLike = async () => {
+  const fetchLikes = async () => {
     try {
-      if (userLikeId) {
-        await deleteLike(userLikeId);
-        setUserLikeId(null);
-        setLikes((prev) => prev.filter((like) => like.like_id !== userLikeId));
+      const allLikes = await getLikes();
+      if (Array.isArray(allLikes)) {
+        const filteredLikes = allLikes.filter(
+          (like) => like.media_id === mediaId,
+        );
+        setLikes(filteredLikes);
       } else {
-        const newLike = await postLike(mediaId);
-        setUserLikeId(newLike.like_id);
-        setLikes((prev) => [
-          ...prev,
-          {like_id: newLike.like_id, media_id: mediaId, user_id: user.user_id},
-        ]);
+        console.error('Likes data is not an array:', allLikes);
+      }
+
+      if (token) {
+        const userLikesData = await getLikesByUser(token);
+        const hasLiked = userLikesData.some((like) => like.file_id === mediaId);
+        setUserLikes(hasLiked);
       }
     } catch (error) {
-      console.error('Error handling like:', error.message);
+      console.error('Error fetching likes:', error);
     }
   };
 
+  const handleLike = async () => {
+    console.log('Button clicked');
+    try {
+      if (userLikes) {
+        await deleteLike(mediaId, token);
+      } else {
+        await postLike(mediaId, token);
+      }
+      fetchLikes(); // Fetch the updated likes after the like/unlike action
+    } catch (error) {
+      console.error('Error handling like:', error);
+    }
+  };
+  useEffect(() => {
+    console.log('Fetching likes:', mediaId, token);
+    fetchLikes();
+  }, [mediaId, token]);
+
   return (
-    <div className="flex items-center gap-2">
+    <div>
       <button
-        onClick={handleLike}
-        disabled={!user}
-        className={`rounded-full p-2 ${
-          userLikeId ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'
+        onClick={() => {
+          console.log('Button clicked');
+          handleLike();
+        }}
+        className={`rounded-md px-4 py-2 ${
+          userLikes ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'
         }`}
+        disabled={!token}
       >
-        {userLikeId ? '❤️ Liked' : '🤍 Like'}
+        {userLikes ? 'Unlike ❤️' : 'Like 🤍'}
       </button>
-      <span>{likes.length} Likes</span>
+
+      <p>
+        <span className="text-gray-500">
+          {likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
+        </span>
+      </p>
     </div>
   );
 };
