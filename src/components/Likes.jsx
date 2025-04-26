@@ -36,7 +36,7 @@ const Likes = ({mediaId, token}) => {
       } else {
         await postLike(mediaId, token);
       }
-      fetchLikes(); // Fetch the updated likes after the like/unlike action
+      fetchLikes();
     } catch (error) {
       console.error('Error handling like:', error);
     }
