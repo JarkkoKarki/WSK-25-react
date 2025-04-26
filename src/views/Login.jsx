@@ -12,7 +12,10 @@ const Login = () => {
   return (
     <>
       {formToggle ? <LoginForm /> : <RegisterForm />}
-      <button onClick={clickHandler}>
+      <button
+        className="m-4 rounded-2xl border-gray-400 bg-gray-600 p-5"
+        onClick={clickHandler}
+      >
         {formToggle ? 'or Register' : 'or Login'}
       </button>
     </>

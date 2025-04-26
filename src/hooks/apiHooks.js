@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
+
 import {fetchData} from '../utils/fetchData';
 
 const authApiUrl = import.meta.env.VITE_AUTH_API;
@@ -164,6 +165,50 @@ const useFile = () => {
   };
 
   return {postFile};
+};
+
+export const useLike = () => {
+  const getLikes = async () => {
+    const response = await fetch(`${mediaApiUrl}/likes`);
+    const json = await response.json();
+    return json || [];
+  };
+
+  const getLikesByUser = async (token) => {
+    const response = await fetch(`${mediaApiUrl}/likes/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await response.json();
+    return json || [];
+  };
+
+  const postLike = async (file_id, token) => {
+    const response = await fetch(`${mediaApiUrl}/likes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({file_id}),
+    });
+    const json = await response.json();
+    return json;
+  };
+
+  const deleteLike = async (file_id, token) => {
+    const response = await fetch(`${mediaApiUrl}/likes/file/${file_id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await response.json();
+    return json;
+  };
+
+  return {getLikes, getLikesByUser, postLike, deleteLike};
 };
 
 export {useMedia, useAuthentication, useUser, useFile};

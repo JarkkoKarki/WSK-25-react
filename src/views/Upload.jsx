@@ -32,7 +32,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="rounded-lg bg-stone-700 p-6 text-white shadow-lg">
+    <div className="w-full rounded-2xl border-b border-gray-600 bg-gray-800 p-8.5 transition-colors duration-200">
       <h1 className="mb-4 text-3xl font-bold">Upload</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <TextInput
@@ -40,7 +40,7 @@ const Upload = () => {
           name="title"
           type="text"
           id="title"
-          className="w-full rounded-lg bg-stone-800 p-2 text-white"
+          className="w-full rounded-lg bg-gray-600 p-2 text-white hover:bg-gray-700"
         />
         <div>
           <label htmlFor="description" className="mb-2 block font-semibold">
@@ -51,7 +51,7 @@ const Upload = () => {
             rows={5}
             id="description"
             onChange={handleInputChange}
-            className="w-full rounded-lg bg-stone-800 p-2 text-white"
+            className="w-full rounded-lg bg-gray-600 p-2 text-white hover:bg-gray-700"
           ></textarea>
         </div>
         <div>
@@ -64,7 +64,7 @@ const Upload = () => {
             id="file"
             accept="image/*, video/*"
             onChange={handleFileChange}
-            className="block w-full text-white file:mr-4 file:rounded-lg file:border-0 file:bg-stone-800 file:px-4 file:py-2 file:text-white hover:file:bg-gray-700"
+            className="block w-full text-white file:mr-4 file:rounded-lg file:border-0 file:bg-gray-600 file:px-4 file:py-2 file:text-white hover:file:bg-gray-700"
           />
         </div>
         <img

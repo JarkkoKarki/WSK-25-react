@@ -3,61 +3,56 @@ import {Link} from 'react-router';
 import PropTypes from 'prop-types';
 import {useAuthentication} from '../hooks/apiHooks';
 
-const MediaRow = (props) => {
+const MediaRow = ({item, setSelectedItem}) => {
   const {isLoggedIn} = useAuthentication();
-  const {item, setSelectedItem} = props;
 
   const handleClick = () => {
     setSelectedItem(item);
   };
 
   return (
-    <tr className="*:border-2 *:border-[#ccc] *:p-4">
-      <td>
+    <tr className="w-full border-b border-gray-600 bg-gray-800 transition-colors duration-200 hover:bg-gray-700">
+      <td className="p-4">
         <img
           src={item.thumbnail}
           alt={item.title}
-          className="h-52 object-cover"
+          className="h-40 w-full rounded-lg object-cover shadow-md"
         />
       </td>
-      <td>{item.title}</td>
-      <td>{item.description}</td>
-      <td>{item.username}</td>
-      <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
-      <td>{item.filesize}</td>
-      <td>{item.media_type}</td>
-      <td className="p-0!">
-        <div className="flex gap-2 *:p-2">
+      <td className="p-4">{item.title}</td>
+      <td className="p-4">{item.description}</td>
+      <td className="p-4 text-sm text-gray-400">{item.username}</td>
+      <td className="p-4 text-sm text-gray-400">
+        {new Date(item.created_at).toLocaleString('fi-FI')}
+      </td>
+      <td className="p-4">{item.filesize}</td>
+      <td className="p-4">{item.media_type}</td>
+      <td className="p-4">
+        <div className="flex flex-wrap gap-2">
           <Link
             to="/single"
             state={{item}}
-            className="hover:bg-amber-300 hover:text-gray-900"
             onClick={(event) => {
               event.preventDefault();
-
               setSelectedItem(item);
             }}
+            className="rounded-md bg-amber-500 px-3 py-1 text-sm font-semibold text-gray-900 transition hover:bg-amber-400"
           >
             View
           </Link>
-
           {isLoggedIn && (
             <>
               <button
                 type="button"
-                className="hover:bg-sky-400 hover:text-black"
-                onClick={() => {
-                  console.log('edit button clicked');
-                }}
+                className="rounded-md bg-sky-500 px-3 py-1 text-sm font-semibold text-white transition hover:bg-sky-400"
+                onClick={() => console.log('edit button clicked')}
               >
                 Edit
               </button>
               <button
                 type="button"
-                className="hover:bg-red-500"
-                onClick={() => {
-                  console.log('delete button clicked');
-                }}
+                className="rounded-md bg-red-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-red-500"
+                onClick={() => console.log('delete button clicked')}
               >
                 Delete
               </button>

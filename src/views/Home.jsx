@@ -9,32 +9,35 @@ const Home = () => {
 
   return (
     <>
-      <h2 className="my-4 font-mono text-2xl">My Media</h2>
-      <table>
-        <thead>
-          <tr className="*:border-2 *:border-[#ccc] *:p-4">
-            <th>Thumbnail</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Owner</th>
-            <th>Created</th>
-            <th>Size</th>
-            <th>Type</th>
-            <th>Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mediaArray.map((item) => (
-            <MediaRow
-              key={item.media_id}
-              item={item}
-              setSelectedItem={setSelectedItem}
-            />
-          ))}
-        </tbody>
-      </table>
+      <h2 className="my-4 text-center text-2xl font-bold">My Media</h2>
+      <div className="w-full overflow-x-auto">
+        <table className="w-full table-fixed text-left text-sm text-gray-300">
+          <thead className="bg-gray-700 text-gray-200">
+            <tr>
+              <th className="p-4 text-left">Thumbnail</th>
+              <th className="p-4 text-left">Title</th>
+              <th className="p-4 text-left">Description</th>
+              <th className="p-4 text-left">Owner</th>
+              <th className="p-4 text-left">Created</th>
+              <th className="p-4 text-left">Size</th>
+              <th className="p-4 text-left">Type</th>
+              <th className="hidden p-4 text-left sm:block">Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mediaArray.map((item) => (
+              <MediaRow
+                key={item.media_id}
+                item={item}
+                setSelectedItem={setSelectedItem}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <SingleView item={selectedItem} setSelectedItem={setSelectedItem} />
     </>
   );
 };
+
 export default Home;
